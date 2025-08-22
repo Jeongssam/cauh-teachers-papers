@@ -232,6 +232,37 @@
     </style>
 </head>
 <body>
+    <!-- <body> 태그 바로 아래에 추가 -->
+<div style="
+    position: sticky; 
+    top: 0; 
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); 
+    padding: 10px 20px; 
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+">
+    <button onclick="goHome()" style="
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: 2px solid rgba(255,255,255,0.3);
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    " onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
+       onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+        🏠 연수 자료 메인으로
+    </button>
+</div>
+
+<!-- </body> 태그 바로 위에 추가 -->
+<script>
+function goHome() {
+    window.location.href = '../index.html';
+}
+</script>
     <!-- 슬라이드 1: 제목 -->
     <div class="slide-container">
         <div class="slide active">
