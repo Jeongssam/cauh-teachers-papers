@@ -177,6 +177,8 @@
             font-size: 1rem;
             opacity: 0.8;
         }
+
+        @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8rem;
             }
@@ -190,8 +192,13 @@
             }
             
             .menu-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 20px;
+            }
+            
+            .menu-item {
+                flex: 1 1 100%;
+                max-width: 100%;
             }
         }
     </style>
@@ -264,11 +271,13 @@
         
         function navigateToPage(category) {
             if (category === '수행평가운영') {
-                // 실제 파일명으로 수정
-                window.open('training_materials/20250825.html', '_blank');
+                // 정확한 GitHub Pages URL로 직접 연결
+                window.open('https://jeongssam.github.io/cauh-teachers-papers/training_materials/20250825.html', '_blank');
+                
             } else if (category === '학업성적관리규정') {
-                // 학업성적관리규정 연수 페이지가 준비되면 활성화
-                alert('학업성적관리규정 안내 연수 자료 준비 중입니다.');
+                // 학업성적관리규정 페이지로 연결
+                window.open('https://jeongssam.github.io/cauh-teachers-papers/training_materials/academic_regulations.html', '_blank');
+                
             } else {
                 alert(`${category} 연수 자료 준비 중입니다.`);
             }
