@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학업성적관리규정 안내 연수 - 중앙대학교사범대학부속고등학교 교무부</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 컨테이너 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 메인 컨텐츠 */
+        .main-content {
+            padding: 3rem 0;
+        }
+
+        .training-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #2a5298;
+            display: inline-block;
+        }
+
+        .training-info {
+            background: #f1f5f9;
+            border-left: 4px solid #2a5298;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .training-info h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .training-info p {
+            margin: 0.3rem 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* 연수 카드 */
+        .training-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .training-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .training-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-info p {
+            margin: 0.5rem 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .card-info .info-label {
+            font-weight: 600;
+            color: #1e3c72;
+            display: inline-block;
+            width: 70px;
+        }
+
+        /* 버튼 스타일 */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+        }
+
+        .btn.disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .regulation-btn {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+        }
+
+        .regulation-btn:hover {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+        }
+
+        /* PDF 다운로드 버튼 */
+        .pdf-download-btn {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .pdf-download-btn:hover {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .close {
+            color: #999;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            background: #1e3c72;
+        }
+
+        /* 창닫기 버튼 */
+        .close-window-btn {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .close-window-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .training-section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .training-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                width: 90%;
+                margin: 20% auto;
+                padding: 1.5rem;
+            }
+
+            .close-window-btn {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .training-section {
+                padding: 1rem;
+            }
+
+            .training-info {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+     <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <h1>학업성적관리규정 안내 연수</h1>
+            <p>중앙대학교사범대학부속고등학교 교무부</p>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 연수 개요 -->
+            <section class="training-section">
+                <h2 class="section-title">연수 개요</h2>
+                <div class="training-info">
+                    <h3>🎯 연수 목적</h3>
+                    <p>2025학년도 서울특별시교육청 학업성적관리 시행지침이 전면 개정되어, 이를 반영하여 본교의 학업성적관리규정도 전면 개정하였습니다. 이에 주요 내용을 <strong>학기별 1회씩</strong> 안내하고자 합니다.</p>
+                </div>
+                <div class="training-info">
+                    <h3>📋 학업성적관리규정 확인</h3>
+                    <p>학교 홈페이지에서 2025학년도 새롭게 개정된 중대부고 학업성적관리규정 전문을 참고해주시길 바랍니다.</p>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn regulation-btn" onclick="openRegulation()">2025학년도 중대부고 학업성적관리규정 확인하기</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 연수 자료 -->
+            <section class="training-section">
+                <h2 class="section-title">연수 자료</h2>
+                <div class="training-cards">
+                    <!-- 1차 연수 -->
+                    <div class="training-card">
+                        <div class="card-header">
+                            <h3>1차 연수</h3>
+                            <span class="badge">완료</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-info">
+                                <p><span class="info-label">주제:</span> 2025 중대부고 학업성적관리규정 주요내용(1)</p>
+                                <p><span class="info-label">내용:</span> 3장 출결상황관리, 4장 교과학습발달상황 평가 및 관리</p>
+                                <p><span class="info-label">형태:</span> PDF 자료</p>
+                                <p><span class="info-label">연수일자:</span> 2025년 3월 24일</p>
+                            </div>
+                            <button class="btn" onclick="openPDF()">🔍 1차 연수자료 보기</button>
+                           
+                        </div>
+                    </div>
+
+                    <!-- 2차 연수 -->
+                    <div class="training-card">
+                        <div class="card-header">
+                            <h3>2차 연수</h3>
+                            <span class="badge">준비중</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-info">
+                                <p><span class="info-label">주제:</span> 2025 중대부고 학업성적관리규정 주요내용(2)</p>
+                                <p><span class="info-label">내용:</span> 자료 준비중</p>
+                                <p><span class="info-label">형태:</span> 자료 준비중</p>
+                                <p><span class="info-label">연수일자:</span> 추후 공지</p>
+                            </div>
+                            <button class="btn disabled" onclick="showPreparingModal()">2차 연수자료 보기</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 추가 정보 -->
+            <section class="training-section">
+                <h2 class="section-title">안내사항</h2>
+                <div class="training-info">
+                    <p>• 연수 자료는 교육 목적으로만 사용하시기 바랍니다.</p>
+                    <p>• 그 외 교무부 평가계(291)로 문의해 주시길 바랍니다.</p>
+                    <p>• 2차 연수는 2학기 중 교직원회의시간에 시행할 예정입니다.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+<!-- 창닫기 버튼 -->
+<button class="close-window-btn" onclick="closeWindow()" title="창 닫기">✕ 닫기</button>
+
+<!-- 모달 -->
+    <div id="preparingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-header">📋 연수 자료 준비중</div>
+            <div class="modal-body">
+                해당 연수 자료는 준비중입니다.<br>
+                준비가 완료되는 대로 공지하겠습니다.
+            </div>
+            <button class="modal-btn" onclick="closeModal()">확인</button>
+        </div>
+    </div>
+
+    <script>
+        // 학업성적관리규정 페이지 열기
+        function openRegulation() {
+            window.open('https://cau.sen.hs.kr/106222/subMenu.do', '_blank');
+        }
+
+        // PDF 파일 새 창에서 열기
+        function openPDF() {
+            // GitHub Pages URL로 PDF 열기
+            const pdfUrl = 'https://jeongssam.github.io/cauh-teachers-papers/training_materials/documents/20250324.pdf';
+            window.open(pdfUrl, '_blank');
+        }
+
+        // 준비중 모달 표시
+        function showPreparingModal() {
+            document.getElementById('preparingModal').style.display = 'block';
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            document.getElementById('preparingModal').style.display = 'none';
+        }
+
+        // 모달 외부 클릭시 닫기
+        window.onclick = function(event) {
+            const modal = document.getElementById('preparingModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // 부드러운 스크롤 효과
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.training-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+
+        // 창닫기 함수
+        function closeWindow() {
+            // 브라우저 창이 스크립트로 열린 경우
+            if (window.opener) {
+                window.close();
+            } else {
+                // 직접 접근한 경우 확인 후 닫기
+                if (confirm('창을 닫으시겠습니까?')) {
+                    window.close();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
