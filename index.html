@@ -95,6 +95,8 @@
             max-width: calc(50% - 10px);
         }
         
+
+        
         .menu-item:before {
             content: '';
             position: absolute;
@@ -228,6 +230,15 @@
                     <div class="menu-icon">📊</div>
                     <div class="menu-title">수행평가 운영시 유의사항 전달 연수</div>
                 </div>
+
+                <div class="menu-item" onclick="navigateToPage('교수학습운영평가계획')">
+                    <div class="menu-icon">📝</div>
+                    <div class="menu-title">교수학습 운영 및 평가계획 작성시 유의사항 전달 연수<br><span style="font-size: 0.9rem; font-weight: normal; color: #7f8c8d;">-선행교육 및 선행학습 예방 교육 포함-</span></div>
+                </div>
+                
+                <div class="menu-item" style="visibility: hidden;">
+                    <!-- 정렬을 위한 빈 공간 -->
+                </div>
             </div>
             
             <div class="admin-info">
@@ -277,6 +288,10 @@
             } else if (category === '학업성적관리규정') {
                 // 학업성적관리규정 페이지로 연결
                 window.open('https://jeongssam.github.io/cauh-teachers-papers/training_materials/academic_regulations.html', '_blank');
+                
+            } else if (category === '교수학습운영평가계획') {
+                // 교수학습 운영 및 평가계획 연수 페이지로 연결
+                window.open('https://jeongssam.github.io/cauh-teachers-papers/training_materials/2025evaluation_plan.html', '_blank');
                 
             } else {
                 alert(`${category} 연수 자료 준비 중입니다.`);
