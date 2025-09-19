@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교수학습 운영 및 평가계획 작성시 유의사항 전달 연수</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 80px; /* 네비게이션 버튼 공간 확보 */
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: calc(100vh - 160px); /* 상하 여백 확보 */
+            overflow-y: auto; /* 내용이 넘칠 때 스크롤 */
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 제목 슬라이드 */
+        .title-slide {
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .title-slide h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .title-slide .date {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            margin: 20px 0;
+        }
+
+        .title-slide .school {
+            font-size: 1.1rem;
+            color: #34495e;
+            font-weight: 600;
+        }
+
+        /* 일반 슬라이드 */
+        h1 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #2980b9;
+            margin: 25px 0 15px 0;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #e74c3c;
+            margin: 20px 0 10px 0;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin: 8px 0;
+            font-size: 1rem;
+        }
+
+        .important {
+            background: #e8f5e8;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .warning {
+            background: #ffeaa7;
+            border-left: 4px solid #fdcb6e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .error {
+            background: #ffebee;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        /* 2x2 그리드 스타일 */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+            height: auto;
+            min-height: 400px;
+        }
+
+        .grid-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .grid-item.important {
+            background: #e8f5e8;
+            border-left-color: #27ae60;
+        }
+
+        .grid-item.warning {
+            background: #ffeaa7;
+            border-left-color: #fdcb6e;
+        }
+
+        /* 네비게이션 */
+        .nav-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slide-number:hover {
+            background: rgba(255,255,255,1);
+            transform: scale(1.05);
+        }
+
+        /* 슬라이드 선택 드롭다운 */
+        .slide-selector {
+            position: fixed;
+            top: 70px;
+            right: 30px;
+            display: none;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1001;
+            max-height: 300px;
+            overflow-y: auto;
+            min-width: 200px;
+        }
+
+        .slide-selector.active {
+            display: block;
+        }
+
+        .slide-option {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .slide-option:hover {
+            background: #f8f9fa;
+        }
+
+        .slide-option.current {
+            background: #3498db;
+            color: white;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        /* 링크 버튼 스타일 - 슬라이드 5용 */
+        .link-btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .link-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* 각 버튼별 색상 */
+        .link-btn.btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .link-btn.btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+
+        .link-btn.btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .link-btn.btn-success:hover {
+            background: linear-gradient(135deg, #0e8378 0%, #32d96a 100%);
+        }
+
+        .link-btn.btn-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .link-btn.btn-warning:hover {
+            background: linear-gradient(135deg, #e881f9 0%, #f3455a 100%);
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        /* 반응형 디자인 */
+        @media (min-width: 768px) {
+            .link-btn-container {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            
+            .link-btn {
+                flex: 1;
+                margin: 0 5px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide-container {
+                padding-bottom: 100px;
+            }
+
+            .slide {
+                padding: 25px;
+                width: 95%;
+                max-height: calc(100vh - 180px);
+            }
+
+            .title-slide {
+                padding: 40px 25px;
+            }
+
+            .title-slide h1 {
+                font-size: 1.8rem;
+            }
+
+            .title-slide .date {
+                font-size: 1.1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            .slide-number {
+                top: 20px;
+                right: 20px;
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+
+            .slide-selector {
+                top: 60px;
+                right: 20px;
+                min-width: 180px;
+            }
+
+            .close-btn {
+                top: 20px;
+                left: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .grid-2x2 {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, auto);
+                gap: 15px;
+                min-height: auto;
+            }
+
+            .link-btn-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding: 20px;
+                width: 98%;
+            }
+
+            .title-slide h1 {
+                font-size: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .nav-container {
+                bottom: 15px;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="close-btn" onclick="window.close()" title="창 닫기">✕</button>
+    <div class="slide-number" onclick="toggleSlideSelector()">
+        <span id="currentSlide">1</span> / <span id="totalSlides">12</span>
+    </div>
+
+    <div class="slide-selector" id="slideSelector">
+        <!-- 슬라이드 선택 옵션들이 JavaScript로 생성됩니다 -->
+    </div>
+
+    <div class="slide-container">
+        <!-- 슬라이드 1: 제목-->
+        <div class="slide active title-slide">
+            <h1>교수학습 운영 및 평가계획 작성시<br>유의사항 전달 연수</h1>
+            <h2>- 선행교육 및 선행학습 예방 교육 포함 -</h2>
+            <div class="date">연수일자 : 2025년 9월 22일(월)</div>
+            <div class="school">중앙대학교사범대학부속고등학교 교무부</div>
+        </div>
+
+        <!-- 슬라이드 2: 연수 배경 및 목적 -->
+        <div class="slide">
+            <h1>연수 배경 및 목적</h1>
+            
+            <h2><span class="emoji">🎯</span>교수학습 및 평가 운영 계획의 목적</h2>
+            <ul>
+                <li>교육과정 역량과 성취기준 분석을 통한 체계적 계획 수립</li>
+                <li>한 학기 수업을 통한 학생 도달 목표 명확화</li>
+                <li><span class="highlight">정보공시된 계획서에 근거</span>한 일관성 있는 교육활동 운영</li>
+            </ul>
+
+            <h2><span class="emoji">📋</span>연수 진행 배경</h2>
+            <ul>
+                <li><span class="highlight">학업성적관리위원회 심의 과정에서 발견된 공통 오류사항</span> 확인</li>
+                <li>수업 및 평가 활동의 차질 없는 진행 지원</li>
+                <li>2025학년도 2학기 <span class="highlight">선행출제 점검 & 성취평가제 점검 & 수행평가 점검</span> 활동 지원</li>
+                <li><span style="text-decoration: underline; ">차년도 계획 작성 시 보완사항 사전 점검</span></li>
+            </ul>
+        </div>
+
+        <!-- 슬라이드 3: 과목명 및 학점 -->
+        <div class="slide">
+            <h1>1. 과목명 및 학점 작성</h1>
+            
+            <div class="important">
+                <strong><span class="emoji">📝</span>정확한 과목명 사용 필요</strong>
+                <ul>
+                    <li><span class="highlight">교육과정 문서상 정확한 과목명 사용</span>(과목구분숫자형식, 띄어쓰기 등도 포함)</li>
+                    <li><span style="text-decoration: underline; ">지필고사 시험지를 포함한 모든 공적 문서</span>에 과목명 작성시 주의</li>
+                    <div class="date"><span class="emoji">⚠️</span>오류사례) 2022개정 교육과정 : 공통영어Ⅱ (X) → 공통영어2 (O)</div>
+                </ul>
+            </div>
+            <div class="warning">
+                <strong><span class="emoji">📊</span>학기별 학점 확인</strong>
+                <ul>                  
+                    <li>입학년도별 <span class="highlight">교육과정 학점 배당표와 동일한 학점인지 확인 필요</span></li>
+                    <div class="date"><span class="emoji">⚠️</span>오류사례) 2015개정 교육과정 : 학기 간 운영학점 차이가 있는 학년제 운영과목인데, 1, 2학기 동일한 학점으로 명시</div>
+                </ul>
+                <button class="link-btn btn-primary" onclick="window.open('https://cau.sen.hs.kr/106220/subMenu.do', '_blank')">
+                 중대부고 교육과정 확인하러 가기
+                </button>
+            </div>
+        </div>
+
+        <!-- 슬라이드 4: 진도계획 작성 -->
+        <div class="slide">
+            <h1>2. 진도계획 작성</h1>
+            
+            <div class="important">
+                <strong><span class="emoji">📝</span>작성 원칙</strong>
+                <ul>
+                    <li><span style="text-decoration: underline; ">해당 과목의 성취기준으로만</span> 작성 필수</li>
+                    <li><span class="highlight">해당 학기 진도에 포함된 성취기준으로만</span> <span style="text-decoration: underline; ">진도 계획 및 지필/수행 평가의 범위를 설정할 수 있음</span></li>
+                    <li>학사일정 고려 필요 → 예 : 2025학년도 2학기 진도계획은 8월~2월까지 작성 필요</li>  
+                </ul>
+            </div>
+            <div class="error">
+                <strong><span class="emoji">❌</span>주요 오류사례</strong>
+                <ul>
+                    <div class="date"><span class="emoji">⚠️</span>2022 개정 과목 → 2015 개정 교육과정의 성취기준 사용 / 2015 개정 과목 → 2022 개정 교육과정의 성취기준 사용</div>
+                    <div class="date"><span class="emoji">⚠️</span>운영계획에 명시된 진도와 지필평가 성취기준의 범위 부적합</div>
+                    <div class="date">→ <span style="text-decoration: underline; ">중간고사 이후에 가르치는 성취기준이 중간고사 범위에 포함되어 있는 경우</span> 선행학습위반에 해당</div>
+                    <div class="date">→ <span style="text-decoration: underline; ">다른 학기 또는 다른 학년에 편성된 내용을 앞서 가르치는 경우</span> 선행학습위반에 해당</div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 5: 선행학습예방교육내용 포함 -->
+        <div class="slide">
+            <h1>[참고]선행교육예방을 위한 안내자료</h1>
+
+            <div class="important">
+                <strong><span class="emoji">✅</span>안내자료 확인하기</strong>
+                <div class="link-btn-container">
+                    <button class="link-btn btn-primary" onclick="window.open('https://buseo.sen.go.kr/buseo/bu28/user/bbs/BD_selectBbs.do?q_rowPerPage=10&q_currPage=1&q_sortName=&q_sortOrder=&q_searchKeyTy2=1005&q_searchStartDt=&q_searchEndDt=&q_bbsSn=1454&q_bbsDocNo=20250430203122296&q_searchKeyTy=ttl___1002&q_searchVal=%EC%84%A0%ED%96%89', '_blank')">
+                     선행교육예방을 위한 교과별 안내자료(2022개정)
+                    </button>
+                    <button class="link-btn btn-success" onclick="window.open('https://buseo.sen.go.kr/buseo/bu28/user/bbs/BD_selectBbs.do?q_rowPerPage=10&q_currPage=1&q_sortName=&q_sortOrder=&q_searchKeyTy2=1005&q_searchStartDt=&q_searchEndDt=&q_bbsSn=1454&q_bbsDocNo=20211207131825000&q_searchKeyTy=ttl___1002&q_searchVal=%EC%84%A0%ED%96%89', '_blank')">
+                     선행교육예방을 위한 교과별 안내자료(2015개정)
+                    </button>
+                    <button class="link-btn btn-warning" onclick="window.open('https://buseo.sen.go.kr/buseo/bu28/user/bbs/BD_selectBbs.do?q_rowPerPage=10&q_currPage=1&q_sortName=&q_sortOrder=&q_searchKeyTy2=1005&q_searchStartDt=&q_searchEndDt=&q_bbsSn=1454&q_bbsDocNo=20250430202351846&q_searchKeyTy=ttl___1002&q_searchVal=%EC%84%A0%ED%96%89', '_blank')">
+                     수학, 과학, 영어 교과별 안내자료
+                    </button>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <strong><span class="emoji">📝</span>과목별 평가 문항 확인 내용</strong>
+                <ul>
+                    <li>학교 교육과정 편성 과목과 운영 과목 일치 여부</li>
+                    <li>교과 교육과정 운영 계획(수업지도계획)과 평가 문항 일치 여부</li>
+                    <li>학교 교육과정의 범위와 수준을 벗어난 교과 운영 및 평가 문항 출제 여부</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 6: 수행평가명 -->
+        <div class="slide">
+            <h1>3. 수행평가명</h1>
+            
+            <div class="important">
+                <strong><span class="emoji">📋</span>작성 기준</strong>
+                <ul>
+                    <li>수행평가명은 <span style="text-decoration: underline; ">성적표(나이스)에 기재</span>되는 것으로  <span style="text-decoration: underline; ">평가개요와 세부계획 수행평가명 모두 <span class="highlight">일치</span></span>되게 작성</li>
+                    <li>수행평가 계획서에 제시되는<span class="highlight">순서</span>까지 협의하여 결정하는 것이 필요</li>
+                    <div class="date">→ 동점자 처리 기준에 영향 (학업성적관리규정 참고)</div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 7: 수행평가 영역 및 평가유형별 반영 비율 -->
+        <div class="slide">
+            <h1>4. 수행평가 영역 설정 및 평가유형별 반영 비율</h1>
+            
+            <div class="grid-2x2">
+                <div class="grid-item warning">
+                    <strong><span class="emoji">🎯</span>교육과정 영역 설정 : 2022개정 교과 주의)</strong>
+                    <ul>
+                        <li>교육과정 문서에 표기된 영역명 사용 (교과서 단원명 ❌)</li>
+                    </ul>
+                </div>
+
+                <div class="grid-item important">
+                    <strong><span class="emoji">📊</span>평가유형별 반영 비율 설정</strong>
+                    <ul>
+                        <li>서울시 지침 사항에 근거하여 서술형, 수행평가 비율 준수</li>
+                    </ul>
+                </div>
+
+                <div class="grid-item warning">
+                    <strong><span class="emoji">📌</span>교과별 권장사항 (영역 및 비율)</strong>
+                    <ul>
+                        <li><strong>영어</strong>: 말하기, 듣기, 쓰기 영역 반영 비율 지침 확인</li>
+                        <li><strong>과학</strong>: 실험평가 반영 비율 지침 확인</li>
+                    </ul>
+                </div>
+
+                <div class="grid-item important">
+                    <strong><span class="emoji">✅</span>선도과목 운영</strong>
+                    <ul>
+                        <li>매년 교과별 순번제 운영 (서논술 중점형/수행평가 중점형)</li>
+                        <div class="date">→ 2025학년도: 수학(공통수학1,2), 사회(통합사회1,2)</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 슬라이드 8: 지필평가 횟수 -->
+        <div class="slide">
+            <h1>5. 지필평가 횟수</h1>
+            
+            <div class="important">
+                <strong><span class="emoji">📝</span>본교 권고사항</strong>
+                <ul>
+                    <li>3학년 1학기까지 가급적 2회 시행</li>
+                    <div class="date">→결시자 처리시 공정성 확보를 위한 조치</div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 9: 수행평가 성취기준 -->
+        <div class="slide">
+            <h1>6. 수행평가 성취기준</h1>
+            
+            <div class="important">
+                <strong><span class="emoji">📢</span>설정 기준</strong>
+                <ul>
+                    <li>최대 <span class="highlight">9개 이하</span> 설정 : 나이스 입력에 제한이 있음</li>
+                </ul>
+            </div>
+            <div class="error">
+                <strong><span class="emoji">❌</span>비권장 사항</strong>
+                <ul>
+                    <li>전 수업 차시를 점수화하는 수행평가 시행</li>
+                     <div class="date"> → 해당 수행평가를 통해 학생이 도달해야 할 성취기준 개수가 지나치게 많음</div>
+                    <div class="date">→ '과정 중심평가 = 점수화' 오해 지양, 해당 활동은 <span class="highlight">피드백 제공 목적으로 시행 권장</span></div>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 10: 성적산출방식 및 모니터링 기준 -->
+        <div class="slide">
+            <h1>7. 성적산출방식</h1>
+            
+            <div class="important">
+                <strong><span class="emoji">📝</span>확인사항</strong>
+                <ul>
+                    <li>교육과정별 / 과목별 등급 산출 여부, 성취도 단계 등이 상이하므로 반드시 확인 필요</li>
+                     <div class="date"><span class="emoji">⚠️</span>주의 : 2022 개정의 특목고 과목 중 일반고에서 편성시 2015 개정과 달리 등급 산출되는 과목 있음</div>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong><span class="emoji">✅</span>2022개정 교육과정의 성취도 5단계 과목 학기별 성취평가제 모니터링 실시</strong>
+                <ul>
+                    <li><strong>점검지표1</strong>: 성취수준 A의 분할점수가 <span class="highlight">과목 평균보다 낮게</span> 나타났는가?</li>
+                    <li><strong>점검지표2</strong>: A수준 해당학생 비율이 <span class="highlight">32.8%보다 높게</span> 나타났는가?</li>
+                    <div class="date">[참고] 전년도(2024학년도) 성취수준 A비율 전국 평균(17.5%) + 표준편차(15.3%) = 32.8%</div>
+                     <strong><span class="emoji">⚠️</span>점검지표 1, 2 중 하나라도 해당하는 경우 <span style="text-decoration: underline; ">성적 부풀리기에 해당</span>하게 되므로 주의 </strong>
+                     <div class="date">  → 활용되는 분할점수 종류는 과목별 평가 난이도 및 학생 수준 분석을 바탕으로 협의 결정</div>   
+                </ul>
+            </div>
+        </div>
+
+        <!-- 슬라이드 11: 수행평가 채점 기준표 작성시 주의사항 -->
+        <div class="slide">
+            <h1>8. 수행평가 채점 기준표 작성</h1>
+            
+            <div class="warning">
+                <strong><span class="emoji">📊</span>기본점수 설정시 주의사항</strong>
+                <ul>
+                    <li>수행평가 기본점수 지나치게 높게 부여<span class="emoji">❌</span>, 적정 수준 유지</li>
+                     <div class="date"><strong><span class="emoji">✅</span>추정분할점수 과목: E/I 추정분할점수 > 기본점수</strong></div>
+                     <div class="date"><strong><span class="emoji">✅</span>고정추정분할점수 과목: 기본점수 40% 미만 설정</strong></div>
+                </ul>
+            </div>
+
+            <div class="error">
+                <strong><span class="emoji">❌</span>주요 오류 사례</strong>
+                <ol>
+                    <li><strong>주관적 기준 사용</strong>: "호응도", "태도" 등 주관적 기준 → 성취기준 도달을 확인할 수 있는 객관적 채점기준만 사용</li>
+                    <li><strong>과제형 평가</strong>: "기한 내 제출 여부"와 같이 과제형으로 오해받을 수 있는 기준 → '미제출'로 변경하는 것이 바람직</li>
+                    <li><strong>부분점수 불명확</strong>: "우수"를 "10~15점"으로 설정 → 급간 내 차등 기준 불명확, 급간 내 차등 채점 기준 명확하게 명시</li>
+                   
+                </ol>
+            </div>
+        </div>
+
+        <!-- 슬라이드 12: 마무리 -->
+        <div class="slide">
+            <h1><span class="emoji">🎯</span>안내 사항</h1>
+            
+            <div class="important">
+                <ul>
+                    <li><strong>2025학년도 2학기 수행평가 운영 점검</strong> : ~9/25(목)까지 교과주임선생님께 점검결과 서면제출, 9/15 메시지 참조</li>
+                    <li><strong>2025학년도 2학기 학교교육과정 운영 및 선행출제 점검</strong> : ~10/15(수)까지 평가계에 점검 결과 제출, 자세한 내용은 중간고사 직후 안내 예정</li>
+
+                    <div class="warning">   <span class="emoji">✅</span>학교 자체점검 : 국어, 수학, 영어, 사회(역사, 도덕 포함), 과학 교과(군) 과목<br>
+                                                      <span class="emoji">✅</span><strong>교육청 점검</strong> : 국어, 수학, 과학 교과(군) 과목<br>
+                                                      <span class="emoji">📌</span>3학년 과목 제외<br>
+                                                       <span class="emoji">📌</span>1,2학년 과목 중 체육·예술, 기술․가정, 제2외국어․한문․교양 교과(군), 전문교과의 과목 제외</div>
+                   <li><strong>2025학년도 2학기 1학년 5단계 과목 성취평가제 모니터링</strong> : 12월중 실시 예정, 9/22 메시지 참조</li>
+                </ul>
+            </div>
+
+                           
+          
+            <div style="text-align: center; margin-top: 40px; font-size: 0.9rem; color: #7f8c8d;">
+                <strong>그 외 궁금하신 사항은 교무부 평가계(291)로 문의해 주시길 바랍니다.<br>감사합니다!</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-container">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">이전</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">다음</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // 슬라이드 제목들
+        const slideTitles = [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ];
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        // 슬라이드 선택기 초기화
+        function initSlideSelector() {
+            const selector = document.getElementById('slideSelector');
+            selector.innerHTML = '';
+            
+            slideTitles.forEach((title, index) => {
+                const option = document.createElement('div');
+                option.className = 'slide-option';
+                option.textContent = `${index + 1}. ${title}`;
+                option.onclick = () => goToSlide(index);
+                selector.appendChild(option);
+            });
+        }
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // 버튼 상태 업데이트
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+
+            // 슬라이드 선택기 업데이트
+            updateSlideSelector();
+        }
+
+        function updateSlideSelector() {
+            const options = document.querySelectorAll('.slide-option');
+            options.forEach((option, index) => {
+                option.classList.toggle('current', index === currentSlideIndex);
+            });
+        }
+
+        function changeSlide(direction) {
+            const newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < totalSlides) {
+                currentSlideIndex = newIndex;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        function goToSlide(index) {
+            if (index >= 0 && index < totalSlides) {
+                currentSlideIndex = index;
+                showSlide(currentSlideIndex);
+                toggleSlideSelector(); // 선택 후 드롭다운 닫기
+            }
+        }
+
+        function toggleSlideSelector() {
+            const selector = document.getElementById('slideSelector');
+            selector.classList.toggle('active');
+        }
+
+        // 외부 클릭시 슬라이드 선택기 닫기
+        document.addEventListener('click', function(e) {
+            const selector = document.getElementById('slideSelector');
+            const slideNumber = document.querySelector('.slide-number');
+            
+            if (!selector.contains(e.target) && !slideNumber.contains(e.target)) {
+                selector.classList.remove('active');
+            }
+        });
+
+        // 키보드 네비게이션
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'Escape') {
+                document.getElementById('slideSelector').classList.remove('active');
+            }
+        });
+
+        // 초기 설정
+        initSlideSelector();
+        showSlide(0);
+    </script>
+</body>
+</html>
