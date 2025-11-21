@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025학년도 학업성적관리규정 2차 연수</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 헤더 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* 슬라이드 영역 */
+        .slider-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .slide-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 슬라이드 헤더 */
+        .slide-header {
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .back-to-index {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .back-to-index:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .slide-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .slide-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .slide-header p {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* 슬라이드 본문 */
+        .slide-body {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        /* 네비게이션 버튼 */
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .nav-button:hover {
+            background: white;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-button.prev {
+            left: 20px;
+        }
+
+        .nav-button.next {
+            right: 20px;
+        }
+
+        /* 하단 네비게이션 */
+        .bottom-nav {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .dots-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d1d5db;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 32px;
+            border-radius: 4px;
+        }
+
+        .slide-counter {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .keyboard-hint {
+            background: #f9fafb;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* 목차 스타일 */
+        .index-item {
+            display: flex;
+            align-items: center;
+            background: #f9fafb;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .index-item:hover {
+            background: linear-gradient(135deg, #eff6ff 0%, #f3e8ff 100%);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .index-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .index-text {
+            flex: 1;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .index-arrow {
+            color: #9ca3af;
+            font-size: 1.2rem;
+        }
+
+        /* 정보박스 스타일 */
+        .info-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+        }
+
+        .info-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            line-height: 1.6;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box ul li {
+            padding: 8px 0 8px 20px;
+            border-left: 2px solid;
+            margin-bottom: 8px;
+        }
+
+        /* 색상 테마 */
+        .bg-blue { background: #eff6ff; border-color: #3b82f6; }
+        .text-blue { color: #1e40af; }
+        .border-blue { border-color: #93c5fd; }
+
+        .bg-orange { background: #fff7ed; border-color: #f97316; }
+        .text-orange { color: #c2410c; }
+        .border-orange { border-color: #fdba74; }
+
+        .bg-pink { background: #fce7f3; border-color: #ec4899; }
+        .text-pink { color: #be185d; }
+
+        .bg-red { background: #fef2f2; border-color: #ef4444; }
+        .text-red { color: #b91c1c; }
+        .border-red { border-color: #fca5a5; }
+
+        .bg-purple { background: #f3e8ff; border-color: #a855f7; }
+        .text-purple { color: #7e22ce; }
+        .border-purple { border-color: #d8b4fe; }
+
+        .bg-teal { background: #f0fdfa; border-color: #14b8a6; }
+        .text-teal { color: #115e59; }
+        .border-teal { border-color: #5eead4; }
+
+        .bg-yellow { background: #fefce8; border-color: #eab308; }
+        .text-yellow { color: #a16207; }
+        .border-yellow { border-color: #fde047; }
+
+        .bg-green { background: #f0fdf4; border-color: #22c55e; }
+        .text-green { color: #15803d; }
+        .border-green { border-color: #86efac; }
+
+        .bg-indigo { background: #eef2ff; border-color: #6366f1; }
+        .text-indigo { color: #4338ca; }
+        .border-indigo { border-color: #a5b4fc; }
+
+        .bg-gray { background: #f9fafb; border-color: #6b7280; }
+        .text-gray { color: #374151; }
+        .border-gray { border-color: #d1d5db; }
+
+        /* 표지 & 마무리 슬라이드 */
+        .cover-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 50px 30px;
+            text-align: center;
+            height: 100%;
+        }
+
+        .cover-slide .title-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cover-slide .chapter-section {
+            margin: 40px 0;
+        }
+
+        .cover-slide .footer-section {
+            opacity: 0.9;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .header p {
+                font-size: 0.8rem;
+            }
+
+            .slide-header h2,
+            .slide-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .slide-body {
+                padding: 20px;
+            }
+
+            .nav-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .nav-button.prev {
+                left: 10px;
+            }
+
+            .nav-button.next {
+                right: 10px;
+            }
+
+            .back-to-index {
+                font-size: 0.75rem;
+                padding: 8px 12px;
+            }
+
+            .index-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .keyboard-hint {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <h1>2025학년도 학업성적관리규정 주요내용안내 연수(2)</h1>
+            <p>연수일자: 2025년 11월 24일</p>
+        </div>
+
+        <!-- 슬라이더 -->
+        <div class="slider-container">
+            <div class="slider-wrapper" id="sliderWrapper">
+                
+                <!-- 슬라이드 1: 표지 -->
+                <div class="slide">
+                    <div class="cover-slide">
+                        <div class="title-section">
+                            <h2 style="font-size: 2.5rem; margin-bottom: 10px;">학업성적관리규정</h2>
+                            <h3 style="font-size: 2rem; margin-bottom: 5px;"> 제5장 교과학습발달상황 평가 및 관리의 기타사항</h3>
+                            
+                        </div>
+                        
+                        <div class="footer-section">
+                            <p style="font-size: 1.1rem; margin-bottom: 5px;">중앙대학교사범대학부속고등학교</p>
+                            <p style="font-size: 1.1rem;">🏫교무부 평가계</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 2: 목차 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: white;">
+                        <div class="slide-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <h3>📑 제5장 주요 내용</h3>
+                        </div>
+                        <div class="slide-body">
+                            <div class="index-item" onclick="goToSlide(2)">
+                                <div class="index-number">01</div>
+                                <div class="index-text">학교생활기록부 교과학습발달상황 기재</div>
+                                <div class="index-arrow">→</div>
+                            </div>
+                            <div class="index-item" onclick="goToSlide(3)">
+                                <div class="index-number">02</div>
+                                <div class="index-text">학적변동자의 성적처리</div>
+                                <div class="index-arrow">→</div>
+                            </div>
+                            <div class="index-item" onclick="goToSlide(4)">
+                                <div class="index-number">03</div>
+                                <div class="index-text">위탁학생 성적처리</div>
+                                <div class="index-arrow">→</div>
+                            </div>
+                            <div class="index-item" onclick="goToSlide(5)">
+                                <div class="index-number">04</div>
+                                <div class="index-text">직업교육 위탁과정 학생의 성적 처리</div>
+                                <div class="index-arrow">→</div>
+                            </div>
+                            <div class="index-item" onclick="goToSlide(6)">
+                                <div class="index-number">05</div>
+                                <div class="index-text">공동교육과정 및 온라인학교, 학교 밖 교육 성적처리</div>
+                                <div class="index-arrow">→</div>
+                            </div>
+                            <div class="index-item" onclick="goToSlide(7)">
+                                <div class="index-number">06</div>
+                                <div class="index-text">장애학생 평가조정</div>
+                                <div class="index-arrow">→</div>
+                            </div>
+                            <div class="index-item" onclick="goToSlide(8)">
+                                <div class="index-number">07</div>
+                                <div class="index-text">기타사항</div>
+                                <div class="index-arrow">→</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 3: 세부능력 및 특기사항 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: #f8f9fa;">
+                        <div class="slide-header" style="background: #3b82f6;">
+                            <button class="back-to-index" onclick="goToSlide(1)">← 목차</button>
+                            <h3>01. 학교생활기록부 교과학습발달상황 : 세부능력 및 특기사항 기재</h3>
+                            <p>제28조(1학년) / 제28조의2(2·3학년)</p>
+                        </div>
+                        <div class="slide-body">
+                            <div class="info-box bg-blue">
+                                <h4 class="text-blue">📝 입력 대상</h4>
+                                <p><strong>모든 교과(군)의 모든 학생</strong></p>
+                            </div>
+                            
+                            <div class="info-box bg-orange">
+                                <h4 class="text-orange">✍️ 입력 내용</h4>
+                                <p>
+                                    <p class="border-orange" style="padding: 10px 0 10px 15px; margin-bottom: 8px;"> • 과목별 성취기준에 따른 성취수준의 특성<br>
+                                     • 학습활동 참여도<br>
+                                     • 학생참여형 수업 및 수업 연계 수행평가 관찰 내용<br>
+                                    <strong>(2·3학년)</strong> • 자기주도적 학습에 의한 변화와 성장 정도
+                                </p>
+                            </div>
+                            
+                            <div class="info-box bg-pink">
+                                <h4 class="text-pink">🎨 체육·예술 교과(군)</h4>
+                                <p>성취수준 특성, 실기능력, 교과적성, 학습활동 참여도 및 태도</p>
+                            </div>
+                            
+                            <div class="info-box bg-red">
+                                <h4 class="text-red">⚠️ 교과수업 미참여 학생</h4>
+                                <p>미참여 사유를 입력</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 4: 학적변동자 성적처리 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: #f8f9fa;">
+                        <div class="slide-header" style="background: #7c3aed;">
+                            <button class="back-to-index" onclick="goToSlide(1)">← 목차</button>
+                            <h3>02. 학적변동자 성적처리</h3>
+                            <p>제29조</p>
+                        </div>
+                        <div class="slide-body">
+                            <div class="info-box bg-purple">
+                                <h4 class="text-purple">🔄 재취학·재입학·전입학·편입학 학생</h4>
+                                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                                    <p class="border-purple" style="padding: 10px 0 10px 15px; margin-bottom: 8px;"><strong>1단계:</strong> 원적교 성적 + 전입 후 취득 성적 합산</p>
+                                    <p class="border-purple" style="padding: 10px 0 10px 15px; margin-bottom: 8px;"><strong>2단계:</strong> 중복 기간 성적은 전입 후 성적 인정</p>
+                                    <p class="border-purple" style="padding: 10px 0 10px 15px; margin-bottom: 8px;"><strong>3단계:</strong> 원적교 성적 없으면 전입 후 평가 성적 반영</p>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="info-box bg-blue">
+                                <h4 class="text-blue">✈️ 귀국학생 등</h4>
+                                <p class="border-blue" style="padding: 10px 0 10px 15px; margin-bottom: 8px;"> • 국내 학교 취학 후 취득한 성적만으로 산출<br>
+                                 • 재외한국학교 성적은 동일(유사) 과목으로 반영 가능, 단, 인정점 부여 등의 사항은 전입교 학업성적관리위원회 결정에 따름<br>
+                                 • 중복 성적은 재취학 후 성적 인정<br>
+                                </p>
+                            </div>
+                            
+                            <div class="info-box bg-yellow">
+                                <p class="text-yellow" style="font-weight: 600;">💡 지필평가 시행 이전 전입 학생은 해당 지필평가 응시 원칙</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 5: 위탁학생 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: #f8f9fa;">
+                        <div class="slide-header" style="background: #14b8a6;">
+                            <button class="back-to-index" onclick="goToSlide(1)">← 목차</button>
+                            <h3>03. 위탁학생 성적처리</h3>
+                            <p>제30조</p>
+                        </div>
+                        <div class="slide-body">
+                            <div class="info-box bg-teal">
+                                <h4 class="text-teal">📋 기본 원칙</h4>
+                                <p style="font-size: 1.1rem; font-weight: 600;">
+                                    위탁교(기관)의 성적을 <span style="color: #dc2626;">그대로 인정</span>하여 입력
+                                </p>
+                            </div>
+                            
+                            <div class="info-box bg-yellow">
+                                <h4 class="text-yellow">📊 입력 내용</h4>
+                                <p class="border-yellow style="padding: 10px 0 10px 15px; margin-bottom: 8px;">• 위탁교의 성적 인정, 재적교 성적산출에 미포함<br>• 성적 산출 과목: 동일(유사) 과목으로 인정하여 입력<br>• 성적 미산출 과목: '세부능력 및 특기사항'에 이수 내용만 입력</p>
+                             </div>
+                            
+                            <div class="info-box bg-green">
+                                <h4 class="text-green">🔄 복교 학생</h4>
+                                <p>학기말 성적 처리 이전 복교 시 재적교 성적산출에 포함</p>
+                            </div>
+                            
+                            <div class="info-box bg-blue">
+                                <p class="text-blue" style="font-weight: 600;">💡 (1학년) 출석률을 학점이수 인정 기준으로 설정 가능<br> 💡 (병원학교 및 원격수업의 건강장애 학생)평가 당일 본교 출석 원칙</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 6: 직업교육 위탁과정 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: #f8f9fa;">
+                        <div class="slide-header" style="background: #ea580c;">
+                            <button class="back-to-index" onclick="goToSlide(1)">← 목차</button>
+                            <h3>04. 직업교육 위탁과정 학생 성적처리</h3>
+                            <p>제31조(1학년) / 제31조의2(2·3학년)</p>
+                        </div>
+                        <div class="slide-body">
+                            <div class="info-box bg-orange">
+                                <h4 class="text-orange">🏫 소속 학교 이수 과목</h4>
+                                <p>수강자수에 소속 학교 학생과 <strong>합산</strong><br>
+                                <span style="color: #6b7280; font-size: 0.9rem;">(단, 학점 불일치 시 분리)</span></p>
+                            </div>
+                            
+                            <div class="info-box bg-yellow">
+                                <h4 class="text-yellow">🏭 위탁기관 평가 과목</h4>
+                                <p>위탁기관에서 통보받은 성적 그대로 입력<br>
+                                <span style="color: #6b7280; font-size: 0.9rem;">(원점수, 과목 평균, 성취도, 수강자수 등)</span></p>
+                            </div>
+                            
+                            <div class="info-box bg-red">
+                                <h4 class="text-red">⚠️ 중요 사항</h4>
+                                <p>
+                                    • 소속 학교 성적과 분리 관리<br>
+                                    • 위탁기관 성적 통보 내용 그대로 반영</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 7: 공동교육과정 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: #f8f9fa;">
+                        <div class="slide-header" style="background: #6366f1;">
+                            <button class="back-to-index" onclick="goToSlide(1)">← 목차</button>
+                            <h3>05. 공동교육과정 및 온라인학교, 학교 밖 교육</h3>
+                            <p>제32조(1학년) / 제32조의2(2·3학년) / 제33조</p>
+                        </div>
+                        <div class="slide-body">
+                            <div class="info-box bg-indigo">
+                                <h4 class="text-indigo">🤝 공동교육과정 및 온라인학교</h4>
+                                <p style="margin-bottom: 10px;">• 개설 학교에서 통보받은 성적 그대로 입력<br>
+                                    • (1학년)수강하였으나 이수하지 못한 학생수도 포함하여 성적 산출<br>
+                                    • (2, 3학년) 수강하여 모두 이수하한 학생수를 수강자수로 하여 성적 산출
+</p>
+                                
+                            </div>
+                            
+                            <div class="info-box bg-purple">
+                                <h4 class="text-purple">🎓 학교 밖 교육</h4>
+                                <p style="margin-bottom: 10px;">• 평가 결과를 통보받아 반영<br>
+                                    • ‘교과’, ‘과목’, ‘학점’ 및 ‘과목별 세부능력 및 특기사항’을 입력하고, 이외 항목은 모두 ‘·’을 입력<br>
+                                    • '과목별 세부능력 및 특기사항'에는 객관적 교육내용(과목명, 이수학점, 객관적 학습내용)만 입력 가능</p>
+                            </div>
+                       
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 8: 장애학생 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: #f8f9fa;">
+                        <div class="slide-header" style="background: #22c55e;">
+                            <button class="back-to-index" onclick="goToSlide(1)">← 목차</button>
+                            <h3>06. 장애학생 평가조정</h3>
+                            <p>제34조(1학년) / 제34조의2(2·3학년)</p>
+                        </div>
+                        <div class="slide-body">
+                            <div class="info-box bg-green">
+                                <h4 class="text-green">♿ 기본 원칙</h4>
+                                <p>「장애인 등에 대한 특수교육법」에 따라 장애학생의 능력과 특성에 적합한 평가 조정 실시</p>
+                            </div>
+                            
+                            <div class="info-box bg-blue">
+                                <h4 class="text-blue">📋 평가 조정 내용</h4>
+                               <p>• 평가 시간 조정
+                                    <br>• 평가지 형식 변경<br>
+                                    • 보조공학기기 사용 허용<br>
+                                    • 대체 평가 실시</p>
+                               
+                            </div>
+                       
+                            <div class="info-box bg-purple">
+                                <p class="text-purple" style="font-weight: 600;">💡 추가 평가조정이 필요한 경우 학교 학업성적관리위원회 심의를 거쳐 결정</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 9: 기타사항 -->
+                <div class="slide">
+                    <div class="slide-content" style="background: #f8f9fa;">
+                        <div class="slide-header" style="background: #4b5563;">
+                            <button class="back-to-index" onclick="goToSlide(1)">← 목차</button>
+                            <h3>07. 기타사항</h3>
+                            <p>제35조/ 제36조</p>
+                        </div>
+                        <div class="slide-body">
+                            <div class="info-box bg-gray">
+                                <h4 class="text-gray">📚 준용 규정</h4>
+                                <p>이 규정에 명시되지 않은 사항은 다음을 준용합니다</p>
+                            </div>
+                            
+                            <div class="info-box bg-blue">
+                                <h4 class="text-blue">📖 관련 법규</h4>
+                                <ul>
+                                    <p>• 창의적 체험활동상황, 독서활동상황, 행동특성 및 종합의견 평가 및 관리, 학교생활기록부 자료의 정정 등은 「2025 학교생활기록 기재요령」 을 준용<br>
+                                    • 학업성적 평가 및 관리는 상위 관련 법규 또는 상위 지침 우선</p>
+                            </div>
+                            
+                          
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 슬라이드 10: 마무리 -->
+                <div class="slide">
+                    <div class="cover-slide">
+                        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                           
+                            <div style="background: rgba(255,255,255,0.2); padding: 30px; border-radius: 15px; backdrop-filter: blur(10px);">
+                                <p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 10px;">자세한 내용은</p>
+                                <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">학교 홈페이지의</p>
+                                <p style="font-size: 1.5rem; font-weight: bold;">학업성적관리규정 전문을</p>
+                                <p style="font-size: 1.3rem; line-height: 1.8; margin-top: 10px;">참고해 주시기 바랍니다.</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 30px;">
+                            <p style="font-size: 1.1rem; margin-bottom: 5px;">중앙대학교사범대학부속고등학교</p>
+                            <p style="font-size: 1.1rem;">교무부</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 네비게이션 버튼 -->
+            <button class="nav-button prev" id="prevBtn" onclick="prevSlide()">‹</button>
+            <button class="nav-button next" id="nextBtn" onclick="nextSlide()">›</button>
+        </div>
+
+        <!-- 하단 네비게이션 -->
+        <div class="bottom-nav">
+            <div class="dots-container" id="dotsContainer"></div>
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+            </div>
+        </div>
+
+        <!-- 키보드 안내 -->
+        <div class="keyboard-hint">
+            💡 키보드 화살표 ← → 로도 슬라이드를 넘길 수 있습니다
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 10;
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideEl = document.getElementById('currentSlide');
+        const dotsContainer = document.getElementById('dotsContainer');
+
+        // 초기화
+        function init() {
+            // 점 네비게이션 생성
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+            updateNavigation();
+        }
+
+        // 슬라이드 이동
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+            currentSlide = index;
+            sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateNavigation();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                goToSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+
+        // 네비게이션 업데이트
+        function updateNavigation() {
+            // 버튼 상태
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+
+            // 슬라이드 카운터
+            currentSlideEl.textContent = currentSlide + 1;
+
+            // 점 네비게이션
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // 키보드 이벤트
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+
+        // 터치 스와이프 지원 (모바일)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        sliderWrapper.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        sliderWrapper.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        init();
+    </script>
+</body>
+</html>
