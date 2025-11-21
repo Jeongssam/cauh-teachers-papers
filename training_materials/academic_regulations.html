@@ -406,16 +406,16 @@
                     <div class="training-card">
                         <div class="card-header">
                             <h3>2차 연수</h3>
-                            <span class="badge">준비중</span>
+                            <span class="badge">완료</span>
                         </div>
                         <div class="card-body">
                             <div class="card-info">
                                 <p><span class="info-label">주제:</span> 2025 중대부고 학업성적관리규정 주요내용(2)</p>
-                                <p><span class="info-label">내용:</span> 자료 준비중</p>
-                                <p><span class="info-label">형태:</span> 자료 준비중</p>
-                                <p><span class="info-label">연수일자:</span> 추후 공지</p>
+                                <p><span class="info-label">내용:</span> 5장 교과학습발달상황 평가 및 관리의 기타사항</p>
+                                <p><span class="info-label">형태:</span> 웹페이지</p>
+                                <p><span class="info-label">연수일자:</span> 2025년 11월 24일</p>
                             </div>
-                            <button class="btn disabled" onclick="showPreparingModal()">2차 연수자료 보기</button>
+                            <button class="btn" onclick="openSecondTraining()">🔍 2차 연수자료 보기</button>
                         </div>
                     </div>
                 </div>
@@ -427,7 +427,7 @@
                 <div class="training-info">
                     <p>• 연수 자료는 교육 목적으로만 사용하시기 바랍니다.</p>
                     <p>• 그 외 교무부 평가계(291)로 문의해 주시길 바랍니다.</p>
-                    <p>• 2차 연수는 2학기 중 교직원회의시간에 시행할 예정입니다.</p>
+                    
                 </div>
             </section>
         </div>
@@ -460,6 +460,11 @@
             // GitHub Pages URL로 PDF 열기
             const pdfUrl = 'https://jeongssam.github.io/cauh-teachers-papers/training_materials/documents/20250324.pdf';
             window.open(pdfUrl, '_blank');
+        }
+
+        // 2차 연수 페이지 열기
+        function openSecondTraining() {
+            window.location.href = 'https://jeongssam.github.io/cauh-teachers-papers/training_materials/academic_regulations(2).html';
         }
 
         // 준비중 모달 표시
