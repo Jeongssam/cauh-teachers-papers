@@ -28,9 +28,33 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 60px 20px 20px 20px;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* 홈 버튼 */
+        .home-button {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .home-button:hover {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .header h1 {
@@ -391,8 +415,9 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="header">
-            <h1>2025학년도 학업성적관리규정 주요내용안내 연수(2)</h1>
+            <h1>📋2025학년도 학업성적관리규정 주요내용안내 연수(2)</h1>
             <p>연수일자: 2025년 11월 24일</p>
+            <button class="home-button" onclick="goToHome()">🏠 안내연수 홈화면 돌아가기</button>
         </div>
 
         <!-- 슬라이더 -->
@@ -816,6 +841,11 @@
 
         // 페이지 로드 시 초기화
         init();
+
+        // 홈으로 돌아가기
+        function goToHome() {
+            window.location.href = 'https://jeongssam.github.io/cauh-teachers-papers/training_materials/academic_regulations.html';
+        }
     </script>
 </body>
 </html>
